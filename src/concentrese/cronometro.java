@@ -21,6 +21,9 @@ import javax.swing.UIManager;
  
 public class cronometro implements Runnable 
 { 
+    JLabel tiempo;
+    Thread hilo;
+    boolean cronometroActivo;
     public cronometro(JLabel tiempo)
     {
         
@@ -101,7 +104,5 @@ public class cronometro implements Runnable
         //new cronometro();
     }
   
-    JLabel tiempo;
-    Thread hilo;
-    boolean cronometroActivo;
+    
 }

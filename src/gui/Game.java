@@ -31,22 +31,27 @@ public class Game extends javax.swing.JFrame  {
     private String user;
     private String pck;
     private login ln;
-    
+    private int cont_turn;
     public Game(login ln) {
         
         this.ln=ln;
+        cont_turn=1;
+        
         //this.user=ln.getUser();
         pck="pck1";
         initComponents();
+        turno_c.setText(Integer.toString(cont_turn));
         nombre.setText(user);
         pun.setText(Integer.toString(pt));
         con = new cronometro(tiempo);
         System.out.println("se creo el juego");
     }
     public Game() {
+        cont_turn=1;
         
-        
+        pck="pck1";
         initComponents();
+        turno_c.setText(Integer.toString(cont_turn));
         pun.setText(Integer.toString(pt));
         con = new cronometro(tiempo);
         System.out.println("se creo el juego");
@@ -54,18 +59,12 @@ public class Game extends javax.swing.JFrame  {
 
     public void setTl(String tiempo)
     {
-        if(tiempo.length()==0)
-        {
-            limite.setText("sin limite");
-        }else
-        {
-            
-        }
+        limite.setText(tiempo);
     }
     
-    public void setTn(int tn)
+    public void setTn(int turnos)
     {
-        
+        tn.setText(Integer.toString(turnos));
     }
     
     public void setPck(String pck)
@@ -193,9 +192,15 @@ public class Game extends javax.swing.JFrame  {
             if (par==8)
             {               
                 System.out.println("end of game");
+                cont_turn++;
+                turno_c.setText(Integer.toString(cont_turn));
                 new info(this,pun.getText(),tiempo.getText(),user).setVisible(true);
                 //String aux=tiempo.getText();
                 con.pararCronometro();
+                jButton1.setText("Iniciar");
+                f=false;
+              //setCards();
+                bt=false;
                 //tiempo.setText("argh");
                 
             }
@@ -236,6 +241,7 @@ public class Game extends javax.swing.JFrame  {
         limite = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         tn = new javax.swing.JLabel();
+        turno_c = new javax.swing.JLabel();
 
         setTitle("Concentrese");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -250,6 +256,7 @@ public class Game extends javax.swing.JFrame  {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/who.png"))); // NOI18N
@@ -623,6 +630,8 @@ public class Game extends javax.swing.JFrame  {
 
         tn.setText("∞");
 
+        turno_c.setText("/0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -658,8 +667,11 @@ public class Game extends javax.swing.JFrame  {
                         .addGap(113, 113, 113)
                         .addComponent(tiempo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nombre)
-                        .addGap(37, 37, 37)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(nombre)
+                                .addGap(37, 37, 37))
+                            .addComponent(turno_c, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -670,7 +682,8 @@ public class Game extends javax.swing.JFrame  {
                     .addComponent(jLabel2)
                     .addComponent(tiempo)
                     .addComponent(pun)
-                    .addComponent(nombre))
+                    .addComponent(nombre)
+                    .addComponent(turno_c))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -982,6 +995,7 @@ public class Game extends javax.swing.JFrame  {
     private javax.swing.JLabel tiempo;
     private javax.swing.JLabel tl;
     private javax.swing.JLabel tn;
+    private javax.swing.JLabel turno_c;
     private javax.swing.JLabel turnos;
     // End of variables declaration//GEN-END:variables
 }
